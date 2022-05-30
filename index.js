@@ -15,7 +15,26 @@ const form = document.forms.namedItem("cmd").addEventListener("submit", ((e) => 
 const acceptedCommands = {
     handleHelp(e) {
         res.style.display === "none" ? res.style.display = "block" : res.style.display = "block"
-        res.innerHTML += "Você disse ajuda? <br/>"
+        const commandsDesc = [{
+                name: "help",
+                description: "mostra essas informações (dããã) <br/>"
+            },
+            {
+                name: "pwd",
+                description: "mostra aonde você se perdeu, no meu CV será???? <3 <br/>"
+            },
+            {
+                name: "cls",
+                description: "fiz caquita apaga tudo pfvr <br/>"
+            }
+
+        ]
+
+        commandsDesc.map((command) => {
+            res.innerHTML += ` • ${command.name}  -  ${command.description}`
+
+        })
+
         e.target.command.value = ""
 
     },
