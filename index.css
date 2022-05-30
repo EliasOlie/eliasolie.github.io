@@ -1,0 +1,55 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #1f1f1f;
+    font-size: 1em;
+    font-family: monospace;
+}
+
+.red {
+    display: flex;
+    font-size: 1em;
+    color: #f81118;
+}
+
+.white {
+    display: flex;
+    font-size: 1em;
+    color: #d6dbe5;
+}
+
+.green {
+    display: flex;
+    font-size: 1em;
+    color: #2dc55e;
+}
+
+.result {
+    color: #d6dbe5;
+    display: none;
+}
+
+@keyframes caretBlink {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0;
+    }
+    51% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+input {
+    margin-left: .3em;
+    border: 0;
+    color: #d6dbe5;
+    background-color: transparent;
+    width: 70vw;
+    outline: none;
+}
