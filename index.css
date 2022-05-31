@@ -27,7 +27,7 @@ body {
 
 .result {
     color: #d6dbe5;
-    display: none;
+    /* display: none; */
 }
 
 @keyframes caretBlink {
