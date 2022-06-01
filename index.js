@@ -1,11 +1,11 @@
 const res = document.getElementsByClassName("result")[0]
+const hist = document.getElementById("history")
+    /*
+    TODO:
 
-/*
-TODO:
+    Animações na hora de mostrar o "stdout", e animações de inicialização
 
-Animações na hora de mostrar o "stdout", e animações de inicialização
-
-*/
+    */
 
 const form = document.forms.namedItem("cmd").addEventListener("submit", ((e) => {
     e.preventDefault()
@@ -13,15 +13,18 @@ const form = document.forms.namedItem("cmd").addEventListener("submit", ((e) => 
         commands[e.target.command.value](e)
 
     } catch (error) {
-        res.innerHTML += `bash: ${e.target.command.value}: comando não encontrado <br/>`
+        res.innerHTML += `<br/>bash: ${e.target.command.value}: comando não encontrado <br/>`
         res.innerHTML += "Comando desconhecido, use 'help' para acessar a lista de comandos <br/>"
         e.target.command.value = ""
+        window.scrollTo(0, document.body.scrollHeight);
+
     }
 }))
 
 const acceptedCommands = {
     handleHelp(e) {
-        res.innerHTML += e.target.command.value + "<br/>"
+        res.innerHTML += "<br/><div class=blue>" + e.target.command.value + "<div/> <br/>"
+
         const commandsDesc = [{
                 name: "help",
                 description: "mostra essas informações (dããã) <br/>"
@@ -37,6 +40,10 @@ const acceptedCommands = {
             {
                 name: "whoami",
                 description: "Exibe informações sobre quem EU (Elias Olie) sou ;) <br/>"
+            },
+            {
+                name: "contacts",
+                description: "Exibe minhas informações de contato pra vc me stalkear (ou contratar quem sabe né?? NÉ????)"
             }
 
         ]
@@ -45,14 +52,18 @@ const acceptedCommands = {
             res.innerHTML += ` • ${command.name}  -  ${command.description}`
 
         })
+        window.scrollTo(0, document.body.scrollHeight);
+
 
         e.target.command.value = ""
 
     },
     handlePwd(e) {
-        res.innerHTML += e.target.command.value + "<br/>"
+        res.innerHTML += "<br/><div class=blue>" + e.target.command.value + "<div/> <br/>"
         res.innerHTML += "~/ <br/>"
         e.target.command.value = ""
+        window.scrollTo(0, document.body.scrollHeight);
+
 
     },
     handleCls(e) {
@@ -61,10 +72,9 @@ const acceptedCommands = {
     },
     handleWhoAmI(e) {
         //Formatar melhor a saída de texto
-        res.innerHTML += e.target.command.value + "<br/>"
-
+        res.innerHTML += "<br/><div class=blue>" + e.target.command.value + "<div/> <br/>"
         response = [
-            "Quem você não faço a mínima ideia, mas podemos nos conhecer, use o comando 'contacts (ainda não implementado)' para isso",
+            "Quem você não faço a mínima ideia, mas podemos nos conhecer, use o comando 'contacts' para isso",
             "mas quem eu sou (trocadilho ruim com o whoami) é o que você terá à seguir:",
             "Brasileiro, solteiro, 21 anos de idade, apaixonado desde sempre por tecnologia e computação, enquanto os meus colegas jogavam bola",
             "eu passava o dia todo jogando Minecraft, jogos de RPG, MMORPG e sempre fiquei em dúvidas sobre como eles funcionavam, foi aí que aos 12 anos",
@@ -83,8 +93,45 @@ const acceptedCommands = {
             res.innerHTML += line + "<br/>"
         })
 
-
         e.target.command.value = ""
+
+        window.scrollTo(0, document.body.scrollHeight);
+    },
+    handleContacts(e) {
+        //Formatar melhor saida contando os espaços entre o nome o "-" e o url
+        res.innerHTML += "<br/><div class=blue>" + e.target.command.value + "<div/> <br/>"
+
+        const socialMedia = [{
+                name: "Instagram",
+                url: "https://www.instagram.com/elias_olie/"
+            },
+            {
+                name: "LinkedIn",
+                url: "https://www.linkedin.com/in/eliasolie/"
+            },
+            {
+                name: "Github",
+                url: "https://github.com/EliasOlie"
+            },
+            {
+                name: "Email",
+                url: "contato.eliasolie@gmail.com"
+            }
+        ]
+
+        socialMedia.map((entry) => {
+            if (socialMedia.indexOf(entry) !== socialMedia.length - 1) {
+                res.innerHTML += ` • ${entry.name}    -    <a href=${entry.url}>${entry.url}<a/> <br/>`
+            } else {
+                res.innerHTML += ` • ${entry.name}    -    ${entry.url}`
+            }
+
+
+            e.target.command.value = ""
+
+            window.scrollTo(0, document.body.scrollHeight);
+
+        })
 
     }
 
@@ -94,7 +141,8 @@ const commands = {
     "help": acceptedCommands.handleHelp,
     "pwd": acceptedCommands.handlePwd,
     "cls": acceptedCommands.handleCls,
-    "whoami": acceptedCommands.handleWhoAmI
+    "whoami": acceptedCommands.handleWhoAmI,
+    "contacts": acceptedCommands.handleContacts
 
 
 }
@@ -137,6 +185,7 @@ window.onload = ((e) => {
     consoleMessages.map((message) => {
         setTimeout(() => {
             startup.innerHTML += message
+            window.scrollTo(0, document.body.scrollHeight);
         }, Math.floor(Math.random() * (2000 - 1000)) + 1000)
     })
 
@@ -144,6 +193,7 @@ window.onload = ((e) => {
         startup.style.display = "none"
         results.style.display = "block"
         res.innerHTML += "<div class=white>Dica: use 'help' para obter a lista de comandos<div/>"
+        document.getElementById("cmd-input").focus()
 
     }, 3000)
 })
