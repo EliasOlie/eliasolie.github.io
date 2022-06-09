@@ -158,9 +158,7 @@ const acceptedCommands = {
         })
 
     },
-    handleProjects(e, options) {
-        let validOpt = ["verbose"]
-        
+    handleProjects(e, options) {       
         resultDiv.innerHTML += "<br/><div class=blue>" + e.target.command.value + "<div/> <br/>"
         
 
