@@ -163,29 +163,86 @@ const acceptedCommands = {
         
 
         e.target.command.value = ""
-        window.scrollTo(0, document.body.scrollHeight);
+        window.scrollTo(0, document.body.scrollHeight)
 
 
     },
     handleLs(e, options){
-        console.log("a")
         let files = [
-            {name: "não-me-leia.txt", 
-            perm: "--lxxx"
+            {
+                name: "não-me-leia.txt", 
+                perm: "--lxxx"
             },
         ]
-        let dir = ["Desktop", "Documents", "Downloads", "Elias", "Music", "Pictures", "Public", "Snap", "Snapd", "tools", "Videos"]
-        let hiddenFiles = [".secret.txt"]
+        let dirs = [
+            {
+                name: "<div class=blue> Desktop <div/>",
+                perm: "drwxr-xr-x"
+            }, {
+                name: "<div class=blue> Documents <div/>",
+                perm: "drwxr-xr-x"
+            }, 
+            {
+                name: "<div class=blue> Downloads <div/>",
+                perm: "drwxr-xr-x"
+            },
+            {
+                name:"<div class=blue> Elias <div/>",
+                perm: "drwxr-xr-x"
+            },
+            {
+                name:"<div class=blue> Music <div/>",
+                perm: "drwxr-xr-x"
+            },
+            {
+                name:"<div class=blue> Pictures <div/>",
+                perm: "drwxr-xr-x"
+            },
+            {
+                name:"<div class=blue> Public <div/>",
+                perm: "drwxr-xr-x"
+            },
+            {
+                name:"<div class=blue> Snap <div/>",
+                perm: "drwxr-xr-x"
+            },
+            {
+                name: "<div class=blue> Snapd <div/>",
+                perm: "drwxr-xr-x"
+            },
+            {
+                name: "<div class=blue> tools <div/>",
+                perm: "drwxr-xr-x"
+            },
+            {
+                name: "<div class=blue> Videos <div/>",
+                perm: "drwxr-xr-x"
+            } 
+        ]
+        
+        let hiddenFiles = [
+            {
+                name: ".secret.txt",
+                perm: "drwxr-xr-x"
+            }
+        ]
 
         if (options.length > 1){
             options.filter((opt) => {
                 if(opt === "-la") {
-                    resultDiv.innerHTML += "<div class=blue>.secret.txt<div/>"
+                    hiddenFiles.concat(files, dirs).map((a) => {
+                        // resultDiv.style.display = "flex"
+                        resultDiv.innerHTML += a.perm += a.name += "&nbsp"
+                    })
                 }
             })
         }else{
-            
+            files.concat(dirs).map((a) => {
+                resultDiv.innerHTML += a.name += "&nbsp"
+            })
         }
+        e.target.command.value = ""
+        window.scrollTo(0, document.body.scrollHeight)
     },
     handleMan(e, options){
 

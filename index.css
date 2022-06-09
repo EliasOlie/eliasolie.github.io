@@ -21,9 +21,16 @@ body {
     color: #3273db
 }
 
-#result p {
+#result .lblue {
+    display: flex;
+    color: #5a96f7
+}
+
+#result .red {
+    display: flex;
     color: #f81118;
 }
+
 
 a {
     text-decoration: none;
