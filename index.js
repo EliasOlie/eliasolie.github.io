@@ -1,4 +1,6 @@
 const resultDiv = document.getElementById("result")
+const terminalLine = document.getElementById("t-line")
+
     /*
     TODO:
 
@@ -10,7 +12,6 @@ const form = document.forms.namedItem("cmd").addEventListener("submit", ((e) => 
     e.preventDefault()
     let unparsedCommand = e.target.command.value
     let parsedCommand = unparsedCommand.split(" ")
-    console.log(parsedCommand)
     try {
         
         commands[parsedCommand[0].trim()](e, parsedCommand)
@@ -170,60 +171,60 @@ const acceptedCommands = {
     handleLs(e, options){
         let files = [
             {
-                name: "não-me-leia.txt", 
-                perm: "--lxxx"
+                name: "<div class=white> não-me-leia.txt <div/>", 
+                perm: "<div class=white> --lxxx <div/>"
             },
         ]
         let dirs = [
             {
                 name: "<div class=blue> Desktop <div/>",
-                perm: "drwxr-xr-x"
+                perm: "<div class=white> drwxr-xr-x <div/>"
             }, {
                 name: "<div class=blue> Documents <div/>",
-                perm: "drwxr-xr-x"
+                perm: "<div class=white> drwxr-xr-x <div/>"
             }, 
             {
                 name: "<div class=blue> Downloads <div/>",
-                perm: "drwxr-xr-x"
+                perm: "<div class=white> drwxr-xr-x <div/>"
             },
             {
                 name:"<div class=blue> Elias <div/>",
-                perm: "drwxr-xr-x"
+                perm: "<div class=white> drwxr-xr-x <div/>"
             },
             {
                 name:"<div class=blue> Music <div/>",
-                perm: "drwxr-xr-x"
+                perm: "<div class=white> drwxr-xr-x <div/>"
             },
             {
                 name:"<div class=blue> Pictures <div/>",
-                perm: "drwxr-xr-x"
+                perm: "<div class=white> drwxr-xr-x <div/>"
             },
             {
                 name:"<div class=blue> Public <div/>",
-                perm: "drwxr-xr-x"
+                perm: "<div class=white> drwxr-xr-x <div/>"
             },
             {
                 name:"<div class=blue> Snap <div/>",
-                perm: "drwxr-xr-x"
+                perm: "<div class=white> drwxr-xr-x <div/>"
             },
             {
                 name: "<div class=blue> Snapd <div/>",
-                perm: "drwxr-xr-x"
+                perm: "<div class=white> drwxr-xr-x <div/>"
             },
             {
                 name: "<div class=blue> tools <div/>",
-                perm: "drwxr-xr-x"
+                perm: "<div class=white> drwxr-xr-x <div/>"
             },
             {
                 name: "<div class=blue> Videos <div/>",
-                perm: "drwxr-xr-x"
+                perm: "<div class=white> drwxr-xr-x <div/>"
             } 
         ]
         
         let hiddenFiles = [
             {
-                name: ".secret.txt",
-                perm: "drwxr-xr-x"
+                name: "<div class=lblue> .secret.txt <div/>",
+                perm: "<div class=white> drwxr-xr-x <div/>"
             }
         ]
 
@@ -231,14 +232,16 @@ const acceptedCommands = {
             options.filter((opt) => {
                 if(opt === "-la") {
                     hiddenFiles.concat(files, dirs).map((a) => {
-                        // resultDiv.style.display = "flex"
-                        resultDiv.innerHTML += a.perm += a.name += "&nbsp"
+                        
+                        resultDiv.innerHTML += `${a.perm} <div class=white>&nbsp-&nbsp<div/> ${a.name}<br/> &nbsp` 
+                        
                     })
                 }
             })
         }else{
-            files.concat(dirs).map((a) => {
+            files.concat(dirs).map((a) => {                
                 resultDiv.innerHTML += a.name += "&nbsp"
+                resultDiv.childNodes.forEach((cNode) => { cNode.style.display = "inline-flex"})
             })
         }
         e.target.command.value = ""
@@ -247,8 +250,18 @@ const acceptedCommands = {
     handleMan(e, options){
 
     },
-    useradd(e, options){
+    handleUseradd(e, options){
+        resultDiv.innerHTML += "<br/><div class=blue>" + e.target.command.value + "<div/> <br/>"
 
+        if (options.length === 1){
+            resultDiv.innerHTML = "informe o nome do usuário usando useradd (nome)"
+        }else{
+            localStorage.user = options[1]
+            terminalLine.innerHTML = terminalLine.innerHTML.replace("guest", options[1])
+        }
+
+        e.target.command.value = ""
+        window.scrollTo(0, document.body.scrollHeight)
     }
 
 }
@@ -261,7 +274,8 @@ const commands = {
     contacts: acceptedCommands.handleContacts,
     projects: acceptedCommands.handleProjects,
     ls: acceptedCommands.handleLs,
-    man: acceptedCommands.handleMan
+    man: acceptedCommands.handleMan,
+    useradd: acceptedCommands.handleUseradd
 
 
 }
@@ -312,7 +326,11 @@ const commands = {
 //         startup.style.display = "none"
 //         results.style.display = "block"
 //         resultDiv.innerHTML += "<div class=white>Dica: use 'help' para obter a lista de comandos<div/>"
+//         localStorage.user !== undefined? terminalLine.innerHTML = terminalLine.innerHTML.replace("guest", localStorage.user) : undefined
+
 //         document.getElementById("cmd-input").focus()
 
+
 //     }, 3000)
+
 // })

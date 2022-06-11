@@ -18,10 +18,12 @@ body {
 
 #result .blue {
     display: flex;
+    align-items: center;
     color: #3273db
 }
 
 #result .lblue {
+    align-items: center;
     display: flex;
     color: #5a96f7
 }
@@ -30,7 +32,6 @@ body {
     display: flex;
     color: #f81118;
 }
-
 
 a {
     text-decoration: none;
@@ -45,6 +46,7 @@ a::visited {
     display: flex;
     font-size: 1.5rem;
     color: #d6dbe5;
+    align-items: center;
 }
 
 .green {
